@@ -1,0 +1,49 @@
+<app-loading *ngIf="loadingArtista"></app-loading>
+
+
+<div class="row animate__animated animate__fadeIn" *ngIf="!loadingArtista" >
+    <div class="col-2">
+        <img [src]="artista.images | noimage" class="img-thumbnail img-circle" >
+    </div>
+    <div class="col">
+        <h3>{{artista.name}}</h3>
+        <p><strong>Popularidad:</strong><span class="badge badge-pill badge-secondary">{{artista.popularity}}</span></p>
+        <p><strong>Seguidores:</strong><span class="badge badge-pill badge-success">{{artista.followers.total}}</span></p>
+
+        <p><strong>generos:</strong><span class="badge badge-pill badge-primary" *ngF="let genero of artista.genres">{{genero}}</span></p>
+
+        <p>
+            <a [href]="artista.external_urls.spotify" class="puntero" target="_blank">Ir a la pagina del artista</a>
+        </p>
+        <button routerLink="/search" class="btn btn-outline-warning">Regresar</button>
+    </div>
+    
+</div>    
+
+    <div class="row text-center  mt-5">
+        <div class="col">
+            <table class="table colorFontTable">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Album</th>
+                        <th>Canción</th>
+                        <th>Vista Previa</th>
+                    </tr>
+                </thead>   
+                <tbody >
+                    <tr *ngFor="let track of topTracks">
+                        <td>
+                            <img [src]="track.album.images | noimage" class="img-thumb" >
+                        </td>
+                        <td>{{track.album.name}}</td>
+                        <td>{{track.name}}</td>
+                        <td>
+                            <iframe [src]="track.uri | domseguro"
+                            width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+    </div>
